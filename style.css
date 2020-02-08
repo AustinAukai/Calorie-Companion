@@ -1,5 +1,5 @@
 body { 
-    background: url(Assets/vegetable-fruit-background.jpg) no-repeat center fixed; 
+    background: url(Assets/background-green.jpg) no-repeat center fixed; 
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -8,11 +8,67 @@ body {
   }
   
 #logo {
-  height: 68px;
-  margin-top: -2px;
+  height: 58px;
+  margin-top: 3px;
   margin-left: 5px;
 }
 
-#currentLocation {
+#currentLocationbtn, #currentLocationbtnMobile {
   color: black;
+  margin-top: 5px;
+}
+
+
+/* Mobile */
+@media only screen and (max-width: 767px) {
+  #desktop {
+  display: none;
+  
+}
+  #currentLocationbtn {
+  display: none;
+}
+
+#currentLocationbtnMobile {
+  display: block;
+  margin-top: 10px;
+}
+  
+}
+
+/* Desktop */
+@media only screen and (min-width: 768px) {
+#mobile {
+  display: none;
+}
+
+#desktop {
+  display: block;
+}
+
+#logo {
+    float: left;
+  }
+
+#currentLocationbtnMobile {
+  display: none;
+}
+
+#currentLocationbtn {
+  display: block;
+  margin-top: 14px;
+}
+
+}
+
+#desktop {
+  width: 80%;
+  margin-left: 142px;
+  margin-top: 52px;
+  height: 80vh;
+}
+
+.restaurantInfo {
+  font-size: 20px;
+  text-align: center;
 }
