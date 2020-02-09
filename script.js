@@ -44,14 +44,15 @@ $(document).ready(function () {
                 let newLi = $("<li>");
                 $(newLi).append(`<div class = "collapsible-header"> ${restaurantName} </div>`);
                 // adding map to callapsible
-                $(newLi).append(`<div class = "collapsible-body"><span> ${restaurantAddress} </span><br><a href="${restaurantWebsite}" target="_blank"> ${restaurantWebsite} </a><br><iframe class="float-right" width="250" height="300" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyAgD5uDC_bT26Vq6q_7XUAuGMeAwDPqMw0&origin=${latitude},${longitude}&destination=${restaurantName}&zoom=14" allowfullscreen>
+                $(newLi).append(`<div class = "collapsible-body"><span class="fontStyle"> ${restaurantAddress} </span><br><a class="fontStyle" href="${restaurantWebsite}" target="_blank"> ${restaurantWebsite} </a><br><iframe class="float-right" width="250" height="300" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyAgD5uDC_bT26Vq6q_7XUAuGMeAwDPqMw0&origin=${latitude},${longitude}&destination=${restaurantAddress}&zoom=14" allowfullscreen>
                 </iframe></div>`);
                 $(newUl).append(newLi);
                 let newA = $("<a>");
-                $(newA).addClass("carousel-item");
-                $(newA).append(`<a class="restaurantInfo">${restaurantName}</a><br><a class="restaurantInfo">${restaurantAddress}</a><br><a class="restaurantInfo" href="${restaurantWebsite}" target="_blank">${restaurantWebsite}</a>`);
+                $(newA).addClass("carousel-item carousel-space");
+                $(newA).append(`<a class="restaurantInfo" id="styleName">${restaurantName}</a><br><a class="restaurantInfo" id="styleAddress">${restaurantAddress}</a><br><a class="restaurantInfo btn-small #cddc39 lime" id="styleWeb"
+                 href="${restaurantWebsite}" target="_blank">${restaurantWebsite}</a>`);
                 // addding map to carousel
-                $(newA).append(`<br><iframe class="float" width="700" height="700" align="right" frameborder="1px" style="border:1" src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyAgD5uDC_bT26Vq6q_7XUAuGMeAwDPqMw0&origin=${latitude},${longitude}&destination=${restaurantName}&zoom=15" allowfullscreen>
+                $(newA).append(`<br><iframe id="mapStyle" class="float" width="1100" height="390" align="center" src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyAgD5uDC_bT26Vq6q_7XUAuGMeAwDPqMw0&origin=${latitude},${longitude}&destination=${restaurantAddress}&zoom=15" allowfullscreen>
                 </iframe>`);
                 $("#results").append(newUl);
                 $("#desktop").append(newA);
