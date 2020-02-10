@@ -171,7 +171,7 @@ margin-bottom: 15px;
 }
 
 #collRestAdd {
-  color: gray;
+  color: black;
   font-size: 18px;
 }
 
@@ -179,6 +179,7 @@ margin-bottom: 15px;
   text-transform: none;
   border: 1px solid black;
   margin-bottom: 6px;
+  color: black;
 }
 
 #collRestName {
