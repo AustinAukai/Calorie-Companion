@@ -7,9 +7,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Calorie Companion</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Space+Mono&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css?family=Francois+One|Pragati+Narrow&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.4.1.js"
         integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -20,24 +20,51 @@
     <div class="wrapper">
         <nav>
             <div id="navBar" class="nav-wrapper #f9fbe7 lime lighten-5">
-                <a href="#!" class="brand-logo"><img id="logo" src="Assets/calorie-companion.svg"
-                        alt="Background Image"></a>
-                <ul class="right">
+                <div>
+                    <img id="logo" src="Assets/calorie-companion2.svg"
+                        alt="Background Image">
+                </div>
+                <ul id="ulStyling" class="right">
+                    <a id="calorieCounter" class="waves-effect waves-dark btn #cddc39 lime modal-trigger display-calories-count" href="#modalCalories">0 Cals</a>
                     <li><a id="currentLocationbtn" class="waves-effect waves-dark btn #cddc39 lime">Find
-                            Restaurants Near You!<i class="material-icons right">my_location</i></a></li>
+                        Restaurants Near You!<i class="material-icons right">my_location</i></a></li>
+                    <!-- Mobile Location Button -->
                     <li><a id="currentLocationbtnMobile" class="waves-effect waves-dark btn #cddc39 lime"><i
                                 class="material-icons">my_location</i></a></li>
+                
                 </ul>
             </div>
         </nav>
+    
+        <!--MODAL FOR CALORIE COUNTER-->
+        <!-- Modal Trigger -->
+
+        <!--DIV FOR MODAL CONTENT-->
+        <div id="modalCalories" class="modal">
+            <div class="modal-content">
+                <h4 id="calories-count">Today's calorie consumption:</h4>
+                <h5 class="display-calories-count">0 Calories</h5>
+                <form>
+                    <input type="text" id="calories-consumed" placeholder="Type amount here..."></input>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <a id="add-calories" class="waves-effect waves-green btn-flat">Add</a>
+                <a id="clear-calories" class="waves-effect waves-green btn-flat">Clear All</a>
+                <a class="modal-close waves-effect waves-green btn-flat">Exit</a>
+            </div>
+        </div>
+        <!--END OF MODAL FOR CALORIE COUNTER-->
         <div id="mobile">
             <div id="results" class="row">
 
             </div>
         </div>
+        <div id="desktop-buttons" class="row">        </div>
 
-        <div id="desktop" class="carousel carousel-slider" style="text-align:center">
-            </div>
+        <!-- DIV FOR Modal Structure -->
+        <div id="desktop-modals">        </div>
+        <!--END OF MODAL DESKTOP DESIGN-->
 
 
         <script src="script.js"></script>

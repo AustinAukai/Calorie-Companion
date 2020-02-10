@@ -6,9 +6,9 @@ $(document).ready(function () {
         'x-app-key': "2003e4528f7c4e040df53390634b6755"
     };
     // button event listener
-    $("#currentLocationbtn, #currentLocationbtnMobile").on("click", function(){
+    $("#currentLocationbtn, #currentLocationbtnMobile").on("click", function () {
         setAsync(false);
-        getGeolocation(handleResponse, "18c79131f678477194c154a8c5d56f76")
+        getGeolocation(handleResponse, "b508c6912b3e46f5a1b0011e062903d6")
     });
     // grabs long/lat from api
     function handleResponse(response) {
@@ -35,30 +35,83 @@ $(document).ready(function () {
         }).then(function (response) {
             let newUl = $("<ul>");
             newUl.addClass("collapsible");
-
+            $('#results').empty('');
+            $('#desktop-buttons').empty('');
+            $('#desktop-modals').empty('');
             for (let i = 0; i < response.locations.length; i++) {
 
                 let restaurantName = response.locations[i].name;
                 let restaurantAddress = response.locations[i].address;
                 let restaurantWebsite = response.locations[i].website;
                 let newLi = $("<li>");
-                $(newLi).append(`<div class = "collapsible-header"> ${restaurantName} </div>`);
+                $(newLi).append(`<div id="collRestName" class = "collapsible-header"> ${restaurantName} </div>`);
                 // adding map to callapsible
-                $(newLi).append(`<div class = "collapsible-body"><span class="fontStyle"> ${restaurantAddress} </span><br><a class="fontStyle" href="${restaurantWebsite}" target="_blank"> ${restaurantWebsite} </a><br><iframe class="float-right" width="250" height="300" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyAgD5uDC_bT26Vq6q_7XUAuGMeAwDPqMw0&origin=${latitude},${longitude}&destination=${restaurantAddress}&zoom=14" allowfullscreen>
+                $(newLi).append(`<div class = "collapsible-body row"><span class="fontStyle center-align" id="collRestAdd"> ${restaurantAddress} </span><br><a class="fontStyle center-align btn-small #cddc39 lime" id="collRestWeb" href="${restaurantWebsite}" target="_blank"> ${restaurantWebsite} </a><br><iframe id="collRestMap" align="center" width="100%" height="300" src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyAgD5uDC_bT26Vq6q_7XUAuGMeAwDPqMw0&origin=${latitude},${longitude}&destination=${restaurantAddress}&zoom=14" allowfullscreen>
                 </iframe></div>`);
                 $(newUl).append(newLi);
-                let newA = $("<a>");
-                $(newA).addClass("carousel-item carousel-space");
-                $(newA).append(`<a class="restaurantInfo" id="styleName">${restaurantName}</a><br><a class="restaurantInfo" id="styleAddress">${restaurantAddress}</a><br><a class="restaurantInfo btn-small #cddc39 lime" id="styleWeb"
-                 href="${restaurantWebsite}" target="_blank">${restaurantWebsite}</a>`);
-                // addding map to carousel
-                $(newA).append(`<br><iframe id="mapStyle" class="float" width="1100" height="390" align="center" src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyAgD5uDC_bT26Vq6q_7XUAuGMeAwDPqMw0&origin=${latitude},${longitude}&destination=${restaurantAddress}&zoom=15" allowfullscreen>
-                </iframe>`);
                 $("#results").append(newUl);
-                $("#desktop").append(newA);
+
+                // NEW STUFF FOR MODAL DESKTOP DESIGN
+                let newModalButton = `<a class="waves-effect waves-light btn modal-trigger col s4 offset-s1 modalBtnStyle" href="#modal${i}">${restaurantName}</a>`;
+                $("#desktop-buttons").append(newModalButton);
+                let newDivModalContent = `<div id="modal${i}" class="modal">
+                     <div class="modal-content">
+                     <h4 id="styleName">${restaurantName}</h4>
+                     <h5 id="styleAddress">${restaurantAddress}</h5>
+                     <a id="styleWeb" class="#cddc39 lime" href="${restaurantWebsite}" target="_blank">${restaurantWebsite}</a>
+                     <br>
+                     <iframe id="mapStyle" class="float" align="center" width="90%" height="300" frameborder="0" style="border:0" 
+                     src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyD1zhxzhzGwy2tJOxpaTUh2Q34KvkygRIo
+                     &origin=${latitude},${longitude}&destination=${restaurantAddress}&zoom=14" allowfullscreen></iframe>
+                     </div>
+                     <div class="modal-footer><a class="modal-close waves-effect waves-green btn-flat"></a></div></div>`;
+
+                $("#desktop-modals").append(newDivModalContent);
+
+                // END OF NEW STUFF FOR MODAL DESKTOP DESIGN
             };
+
             $('.collapsible').collapsible({ accordion: true });
-            $('.carousel.carousel-slider').carousel({ fullWidth: true });
-        });  
+            $('.modal').modal();
+        });
     };
+    // START OF CALORIE COUNTER
+    // initializes modal
+    $('.modal').modal();
+
+    let calories = "";
+    let addCalories = "";
+    // checks if there are any saved calorie consumption in localStorage 
+    renderLocalStorage();
+    function renderLocalStorage() {
+        let test = localStorage.getItem("savedCalories");
+        if (!test) {
+            return calories = 0;
+        }
+        calories = JSON.parse(localStorage.getItem("savedCalories"));
+        console.log(calories);
+        $(".display-calories-count").text(`${calories} Cals`)
+    }
+    console.log(calories);
+    // takes input and add on to calories consumed 
+    $("#add-calories").on("click", function () {
+        addCalories = $("#calories-consumed").val();
+        console.log(addCalories);
+        calories = Number(calories) + Number(addCalories);
+        console.log(calories);
+        $(".display-calories-count").text(`${calories} Cals`);
+
+        localStorage.setItem("savedCalories", JSON.stringify(calories));
+        $("#calories-consumed").val("");
+    });
+    // deletes all previous data
+    $("#clear-calories").on("click", function () {
+        confirm("This will delete all previous input data!");
+        $(".display-calories-count").html("0 Cals");
+        calories = 0;
+        addCalories = 0;
+        $("#calories-consumed").val("");
+        localStorage.removeItem("savedCalories");
+    });
+    // END OF CALORIE COUNTER
 });
