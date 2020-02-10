@@ -30,7 +30,7 @@ $(document).ready(function () {
             data: {
                 ll: latitude + ',' + longitude,
                 distance: '3mi',
-                limit: 10
+                limit: 15
             }
         }).then(function (response) {
             let newUl = $("<ul>");
@@ -38,20 +38,36 @@ $(document).ready(function () {
             $('#results').empty('');
             $('#desktop-buttons').empty('');
             $('#desktop-modals').empty('');
+            let restaurantsArray = [];
             for (let i = 0; i < response.locations.length; i++) {
 
                 let restaurantName = response.locations[i].name;
                 let restaurantAddress = response.locations[i].address;
                 let restaurantWebsite = response.locations[i].website;
                 let newLi = $("<li>");
-                $(newLi).append(`<div id="collRestName" class = "collapsible-header"> ${restaurantName} </div>`);
+
+                // check for duplicates
+                if(restaurantsArray.indexOf(restaurantName) === -1) {
+                    restaurantsArray.push(restaurantName);
+                    createElements (restaurantName,restaurantAddress,restaurantWebsite,longitude,latitude,newLi,newUl,i);
+                } 
+                // end of checking duplicates
+            };
+
+            $('.collapsible').collapsible({ accordion: true });
+            $('.modal').modal();
+        });
+    };
+
+    function createElements (restaurantName,restaurantAddress,restaurantWebsite,longitude,latitude,newLi,newUl,i){
+        $(newLi).append(`<div id="collRestName" class = "collapsible-header"> ${restaurantName} </div>`);
                 // adding map to callapsible
                 $(newLi).append(`<div class = "collapsible-body row"><span class="fontStyle center-align" id="collRestAdd"> ${restaurantAddress} </span><br><a class="fontStyle center-align btn-small #cddc39 lime" id="collRestWeb" href="${restaurantWebsite}" target="_blank"> ${restaurantWebsite} </a><br><iframe id="collRestMap" align="center" width="100%" height="300" src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyAgD5uDC_bT26Vq6q_7XUAuGMeAwDPqMw0&origin=${latitude},${longitude}&destination=${restaurantAddress}&zoom=14" allowfullscreen>
                 </iframe></div>`);
                 $(newUl).append(newLi);
                 $("#results").append(newUl);
 
-                // NEW STUFF FOR MODAL DESKTOP DESIGN
+                // MODAL DESKTOP DESIGN
                 let newModalButton = `<a class="waves-effect waves-light btn modal-trigger col s4 offset-s1 modalBtnStyle" href="#modal${i}">${restaurantName}</a>`;
                 $("#desktop-buttons").append(newModalButton);
                 let newDivModalContent = `<div id="modal${i}" class="modal">
@@ -67,14 +83,9 @@ $(document).ready(function () {
                      <div class="modal-footer><a class="modal-close waves-effect waves-green btn-flat"></a></div></div>`;
 
                 $("#desktop-modals").append(newDivModalContent);
-
-                // END OF NEW STUFF FOR MODAL DESKTOP DESIGN
-            };
-
-            $('.collapsible').collapsible({ accordion: true });
-            $('.modal').modal();
-        });
     };
+
+
     // START OF CALORIE COUNTER
     // initializes modal
     $('.modal').modal();
