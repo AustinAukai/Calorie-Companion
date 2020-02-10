@@ -5,10 +5,13 @@ $(document).ready(function () {
         'x-app-id': "545cccc3",
         'x-app-key': "2003e4528f7c4e040df53390634b6755"
     };
+    $('#logo').hide()
     // button event listener
     $("#currentLocationbtn, #currentLocationbtnMobile").on("click", function () {
         setAsync(false);
         getGeolocation(handleResponse, "b508c6912b3e46f5a1b0011e062903d6")
+        $("#logo").show();
+        $("#homepageLogo").css("display","none")
     });
     // grabs long/lat from api
     function handleResponse(response) {

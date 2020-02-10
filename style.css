@@ -13,6 +13,12 @@ body {
   margin-left: 5px;
 }
 
+#homepageLogo {
+  width: 70%;
+  margin-top: 131px;
+  margin-left: 213px;
+}
+
 #currentLocationbtn, #currentLocationbtnMobile {
   color: black;
   margin-top: 5px;
